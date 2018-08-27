@@ -1,0 +1,6 @@
+16700: 0.047868, 0.037834 avg loss, 0.001000 rate, 1.060835 seconds, 1068800 images
+Saving weights to backup//yolov2-tiny-voc_16700.weights
+Resizing
+480 x 480
+ try to allocate workspace = 16777217 * sizeof(float),  CUDA allocate done!
+Loaded: 0.117177 seconds

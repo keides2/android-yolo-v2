@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.media.Image;
+import android.media.Image.Plane;
 import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
@@ -29,7 +30,7 @@ import static org.tensorflow.yolo.Config.LOGGING_TAG;
  * Classifier activity class
  * Modified by Zoltan Szabo
  */
-public class ClassifierActivity extends TextToSpeechActivity implements OnImageAvailableListener {
+public class ClassifierActivity extends CameraActivity implements OnImageAvailableListener {
     private boolean MAINTAIN_ASPECT = true;
     private float TEXT_SIZE_DIP = 10;
 
@@ -37,10 +38,13 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
     private Integer sensorOrientation;
     private int previewWidth = 0;
     private int previewHeight = 0;
+    private byte[][] yuvBytes;
+    private int[] rgbBytes = null;
+    private Bitmap rgbFrameBitmap = null;
     private Bitmap croppedBitmap = null;
     private boolean computing = false;
     private Matrix frameToCropTransform;
-
+    private Matrix cropToFrameTransform;
     private OverlayView overlayView;
     private BorderedText borderedText;
     private long lastProcessingTimeMs;
@@ -49,7 +53,7 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
     public void onPreviewSizeChosen(final Size size, final int rotation) {
         final float textSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 TEXT_SIZE_DIP, getResources().getDisplayMetrics());
-        borderedText = new BorderedText(textSizePx);
+        borderedText = new BorderedText(textSizePx * 2);    // shimatani
         borderedText.setTypeface(Typeface.MONOSPACE);
 
         recognizer = TensorFlowImageRecognizer.create(getAssets());
@@ -66,12 +70,17 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
         sensorOrientation = rotation + screenOrientation;
 
         Log.i(LOGGING_TAG, String.format("Initializing at size %dx%d", previewWidth, previewHeight));
-
+        rgbBytes = new int[previewWidth * previewHeight];
+        rgbFrameBitmap = Bitmap.createBitmap(previewWidth, previewHeight, Config.ARGB_8888);
         croppedBitmap = Bitmap.createBitmap(INPUT_SIZE, INPUT_SIZE, Config.ARGB_8888);
 
         frameToCropTransform = ImageUtils.getTransformationMatrix(previewWidth, previewHeight,
                 INPUT_SIZE, INPUT_SIZE, sensorOrientation, MAINTAIN_ASPECT);
-        frameToCropTransform.invert(new Matrix());
+
+        cropToFrameTransform = new Matrix();
+        frameToCropTransform.invert(cropToFrameTransform);
+
+        yuvBytes = new byte[3][];
 
         addCallback((final Canvas canvas) -> renderAdditionalInformation(canvas));
     }
@@ -91,33 +100,45 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
                 image.close();
                 return;
             }
-
             computing = true;
-            fillCroppedBitmap(image);
+
+            final Plane[] planes = image.getPlanes();
+            fillBytes(planes, yuvBytes);
+
+            final int yRowStride = planes[0].getRowStride();
+            final int uvRowStride = planes[1].getRowStride();
+            final int uvPixelStride = planes[1].getPixelStride();
+            ImageUtils.convertYUV420ToARGB8888(
+                    yuvBytes[0],
+                    yuvBytes[1],
+                    yuvBytes[2],
+                    previewWidth,
+                    previewHeight,
+                    yRowStride,
+                    uvRowStride,
+                    uvPixelStride,
+                    rgbBytes);
+
             image.close();
         } catch (final Exception ex) {
             if (image != null) {
                 image.close();
             }
-            Log.e(LOGGING_TAG, ex.getMessage());
+            Log.e("Exception: ", ex.getMessage());
+            return;
         }
+
+        rgbFrameBitmap.setPixels(rgbBytes, 0, previewWidth, 0, 0, previewWidth, previewHeight);
+        new Canvas(croppedBitmap).drawBitmap(rgbFrameBitmap, frameToCropTransform, null);
 
         runInBackground(() -> {
             final long startTime = SystemClock.uptimeMillis();
             final List<Recognition> results = recognizer.recognizeImage(croppedBitmap);
             lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
             overlayView.setResults(results);
-            speak(results);
             requestRender();
             computing = false;
         });
-    }
-
-    private void fillCroppedBitmap(final Image image) {
-            Bitmap rgbFrameBitmap = Bitmap.createBitmap(previewWidth, previewHeight, Config.ARGB_8888);
-            rgbFrameBitmap.setPixels(ImageUtils.convertYUVToARGB(image, previewWidth, previewHeight),
-                    0, previewWidth, 0, 0, previewWidth, previewHeight);
-            new Canvas(croppedBitmap).drawBitmap(rgbFrameBitmap, frameToCropTransform, null);
     }
 
     @Override

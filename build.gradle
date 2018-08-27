@@ -23,18 +23,24 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.1'
     }
 }
 apply plugin: 'com.android.application'
 android {
+    signingConfigs {
+        release {
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('G:/Android/Project/keystore/keystores.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 23
-    buildToolsVersion '26.0.2'
-
+    buildToolsVersion '27.0.3'
     lintOptions {
         abortOnError false
     }
-
     sourceSets {
         main {
             // Android demo app sources.
@@ -65,6 +71,11 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
     }
 }
 repositories {

@@ -34,7 +34,7 @@ public class OverlayView extends View {
         paint.setColor(Color.GREEN);
         paint.setStyle(Paint.Style.STROKE);
         paint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                15, getResources().getDisplayMetrics()));
+                15 * 2, getResources().getDisplayMetrics()));       // shimatani
         resultsViewHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 112, getResources().getDisplayMetrics());
         colors = ClassAttrProvider.newInstance(context.getAssets()).getColors();
@@ -49,15 +49,24 @@ public class OverlayView extends View {
         for (final DrawCallback callback : callbacks) {
             callback.drawCallback(canvas);
         }
+        float stW = paint.getStrokeWidth();     // shimatani
 
         if (results != null) {
             for (int i = 0; i < results.size(); i++) {
                 RectF box = reCalcSize(results.get(i).getLocation());
-                String title = results.get(i).getTitle() + ":"
+                String title = results.get(i).getTitle()
+                        + ":"
                         + String.format("%.2f", results.get(i).getConfidence());
                 paint.setColor(colors.get(results.get(i).getId()));
+                paint.setStrokeWidth(8);                 // shimatani
                 canvas.drawRect(box, paint);
-                canvas.drawText(title, box.left, box.top, paint);
+                paint.setStrokeWidth(stW);               // shimatani
+                canvas.drawText(title, box.left, box.top - 100, paint);   // shimatani
+
+                String trash = "ごみ箱"               // shimatani
+                        + String.format("%2d", results.get(i).getId())  // shimatani
+                        + "番へ";                         // shimatani
+                canvas.drawText(trash, box.left, box.top, paint);   // shimatani
             }
         }
     }

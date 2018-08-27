@@ -1,0 +1,6 @@
+ 8800: 0.053305, 0.041020 avg loss, 0.001000 rate, 1.369540 seconds, 563,200 images
+Saving weights to backup//yolov2-tiny-voc_8800.weights
+Resizing
+512 x 512
+ try to allocate workspace = 16777217 * sizeof(float),  CUDA allocate done!
+Loaded: 0.272776 seconds
