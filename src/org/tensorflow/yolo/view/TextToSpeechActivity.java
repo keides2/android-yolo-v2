@@ -23,13 +23,23 @@ public abstract class TextToSpeechActivity extends CameraActivity implements Tex
     @Override
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
-            int result = textToSpeech.setLanguage(Locale.US);
+            Locale locale = Locale.US;   // shimatani
+//            Locale locale = Locale.JAPAN;   // shimatani
+
+// shimatani
+            if (textToSpeech.isLanguageAvailable(locale) >= TextToSpeech.LANG_AVAILABLE) {
+                textToSpeech.setLanguage(locale);
+            } else {
+                Log.e(LOGGING_TAG,"Error: Locale");
+            }
+
+            int result = textToSpeech.setLanguage(locale);
             if (result == TextToSpeech.LANG_MISSING_DATA
                     || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e(LOGGING_TAG, "Text to speech error: This Language is not supported");
             }
         } else {
-            Log.e(LOGGING_TAG, "Text to speech: Initilization Failed!");
+            Log.e(LOGGING_TAG, "Text to speech: Initialization Failed!");
         }
     }
 
@@ -44,6 +54,7 @@ public abstract class TextToSpeechActivity extends CameraActivity implements Tex
             lastRecognizedClass = results.get(0).getTitle();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 textToSpeech.speak(lastRecognizedClass, TextToSpeech.QUEUE_FLUSH, null, null);
+                Log.i(LOGGING_TAG, "speak");    // shimatani
             } else {
                 textToSpeech.speak(lastRecognizedClass, TextToSpeech.QUEUE_FLUSH, null);
             }
