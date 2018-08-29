@@ -63,12 +63,32 @@ public class OverlayView extends View {
                 paint.setStrokeWidth(stW);               // shimatani
                 canvas.drawText(title, box.left, box.top - 100, paint);   // shimatani
 
-                String trash = "ごみ箱"               // shimatani
-                        + String.format("%2d", results.get(i).getId())  // shimatani
-                        + "番へ";                         // shimatani
-                canvas.drawText(trash, box.left, box.top, paint);   // shimatani
+                // shimatani
+                Integer garbageNum = garbageSeparate(i);
+                String garbage = "ごみ箱"
+//                      + String.format("%2d", results.get(i).getId())
+                        + String.format("%2d", garbageNum)
+                        + "番へ";
+                canvas.drawText(garbage, box.left, box.top, paint);
             }
         }
+    }
+
+    private Integer garbageSeparate(int i) {
+        Integer garbageNum = results.get(i).getId();
+        switch(garbageNum){
+            case 0:
+                garbageNum = 23;    // 乾電池 cell battery
+                break;
+            case 1:                // 粘着テープ adhesive tape
+                garbageNum = 2;     // 紙
+                garbageNum = 12;    // 布、養生
+                garbageNum = 13;    // ビニール
+                break;
+            case 2:
+                garbageNum = 23;    // ボタン電池 button battery
+        }
+        return garbageNum;
     }
 
     public void setResults(final List<Recognition> results) {

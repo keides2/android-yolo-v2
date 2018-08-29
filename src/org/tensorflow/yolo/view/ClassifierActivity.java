@@ -45,6 +45,8 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
     private BorderedText borderedText;
     private long lastProcessingTimeMs;
 
+    private String lastRecognizedClass = "";    // shimatani
+
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
         final float textSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
@@ -106,6 +108,9 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
             final long startTime = SystemClock.uptimeMillis();
             final List<Recognition> results = recognizer.recognizeImage(croppedBitmap);
             lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+            if (!(results.isEmpty() || lastRecognizedClass.equals(results.get(0).getTitle()))) {
+                lastRecognizedClass = results.get(0).getTitle();    // shimatani
+            }
             overlayView.setResults(results);
             speak(results);
             requestRender();
@@ -130,16 +135,39 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
 
     private void renderAdditionalInformation(final Canvas canvas) {
         final Vector<String> lines = new Vector();
+
         if (recognizer != null) {
             for (String line : recognizer.getStatString().split("\n")) {
                 lines.add(line);
             }
         }
 
-        lines.add("Frame: " + previewWidth + "x" + previewHeight);
-        lines.add("View: " + canvas.getWidth() + "x" + canvas.getHeight());
-        lines.add("Rotation: " + sensorOrientation);
-        lines.add("Inference time: " + lastProcessingTimeMs + "ms");
+// shimatani
+        // lines.add("Frame: " + previewWidth + "x" + previewHeight);
+        // lines.add("View: " + canvas.getWidth() + "x" + canvas.getHeight());
+        // lines.add("Rotation: " + sensorOrientation);
+        // lines.add("Inference time: " + lastProcessingTimeMs + "ms");
+
+        Log.i(LOGGING_TAG, "補足前");
+        lines.add("補足: " + lastRecognizedClass);
+
+        String info1 = "";
+        String info2 = "";
+        switch(lastRecognizedClass){
+            case "cell battery":
+                info1 = "乾電池は23番です";
+                break;
+            case "adhesive tape":
+                info1 = "粘着テープの場合、紙は2番、";
+                info2 = "布/養生は12番、ビニールは13番です";
+                break;
+            case "button battery":
+                info1 = "ボタン電池は23番です";
+                info2 = "但し水銀を含みません";
+                break;
+        }
+        lines.add(info1);
+        lines.add(info2);
 
         borderedText.drawLines(canvas, 10, 10, lines);
     }
