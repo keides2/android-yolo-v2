@@ -21,6 +21,9 @@ Compile and run the project:
 
 How it works?
 
+![ごみ分別サンプル画像](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/Screenshot_20180829-1.png)
+![ごみ分別サンプル画像](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/Screenshot_20180829-1.png)
+
 ![android yolo v2 sample image](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/android-yolo-v2.png)
 ![android yolo v2 sample image](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/android-yolo-v2.1.png)
 
