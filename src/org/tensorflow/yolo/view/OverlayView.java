@@ -83,7 +83,7 @@ public class OverlayView extends View {
             case 1:                // 粘着テープ adhesive tape
                 garbageNum = 2;     // 紙
                 garbageNum = 12;    // 布、養生
-                garbageNum = 13;    // ビニール
+                // garbageNum = 13;    // ビニール
                 break;
             case 2:
                 garbageNum = 23;    // ボタン電池 button battery

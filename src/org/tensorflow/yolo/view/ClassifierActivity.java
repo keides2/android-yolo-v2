@@ -148,8 +148,8 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
         // lines.add("Rotation: " + sensorOrientation);
         // lines.add("Inference time: " + lastProcessingTimeMs + "ms");
 
-        Log.i(LOGGING_TAG, "補足前");
-        lines.add("補足: " + lastRecognizedClass);
+        Log.i(LOGGING_TAG, "検出名");
+        lines.add("検出名: " + lastRecognizedClass);
 
         String info1 = "";
         String info2 = "";
@@ -162,8 +162,7 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
                 info2 = "布/養生は12番、ビニールは13番です";
                 break;
             case "button battery":
-                info1 = "ボタン電池は23番です";
-                info2 = "但し水銀を含みません";
+                info1 = "水銀を含まないボタン電池は23番です";
                 break;
         }
         lines.add(info1);
