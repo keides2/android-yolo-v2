@@ -21,8 +21,8 @@ Compile and run the project:
 
 How it works?
 
-![android yolo v2 sample image](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/sample/android-yolo-v2.png)
-![android yolo v2 sample image](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/sample/android-yolo-v2.1.png)
+![android yolo v2 sample image](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/android-yolo-v2.png)
+![android yolo v2 sample image](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/android-yolo-v2.1.png)
 
 If you would like a more accurate solution, create a server application. See my related projects here:
 * [Tensorflow Example Java API](https://sites.google.com/view/tensorflow-example-java-api/home)
