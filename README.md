@@ -5,7 +5,7 @@
 ![ごみ分別サンプル画像](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/Screenshot_20180829-1.png)
 ![ごみ分別サンプル画像](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/Screenshot_20180829-2.png)
 
-**APKファイルは[こちら(Space Finder)](http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=14896967&MODE=1)からダウンロードできます**
+**APKファイルは[こちら(Space Finder)](http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=14896967)からダウンロードできます**
 
 ![ごみ分別アイコン](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/res/drawable-xhdpi/ic_launcher.png)
 
