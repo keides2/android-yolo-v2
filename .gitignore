@@ -50,3 +50,5 @@ captures/
 
 # Backup files
 *.bak
+/build.gradle
+/gradle.properties

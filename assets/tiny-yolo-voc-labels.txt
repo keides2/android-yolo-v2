@@ -1,3 +1,3 @@
-button battery
-adhesive tape
-cell battery
+ボタン電池
+粘着テープ
+乾電池
