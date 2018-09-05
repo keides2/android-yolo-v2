@@ -9,6 +9,7 @@ import android.media.Image;
 import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
+// import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
@@ -46,6 +47,7 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
     private long lastProcessingTimeMs;
 
     private String lastRecognizedClass = "";    // shimatani
+    // private TextToSpeech tts;   // shimatani
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -104,6 +106,10 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
             Log.e(LOGGING_TAG, ex.getMessage());
         }
 
+// shimatani
+        String tts = makeTts();
+        Log.i(LOGGING_TAG, tts);
+
         runInBackground(() -> {
             final long startTime = SystemClock.uptimeMillis();
             final List<Recognition> results = recognizer.recognizeImage(croppedBitmap);
@@ -112,10 +118,36 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
                 lastRecognizedClass = results.get(0).getTitle();    // shimatani
             }
             overlayView.setResults(results);
-            speak(results);
+
+// shimatani
+            // speak(results);
+            speak2(results, tts);
+
             requestRender();
             computing = false;
         });
+    }
+
+    private String makeTts() {
+        String info1 = "";
+        String info2 = "";
+        String tts = "";
+        switch (lastRecognizedClass) {
+            case "乾電池":
+                info1 = "乾電池は23番です";
+                break;
+            case "粘着テープ":
+                info1 = "粘着テープの場合、紙は2番、";
+                info2 = "布/養生は12番、ビニールは13番です";
+                break;
+            case "ボタン電池":
+                info1 = "水銀を含まないボタン電池は23番です";
+                break;
+            default:
+                break;
+        }
+        tts = info1 + info2;
+        return tts;
     }
 
     private void fillCroppedBitmap(final Image image) {
@@ -154,15 +186,17 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
         String info1 = "";
         String info2 = "";
         switch(lastRecognizedClass){
-            case "cell battery":
+            case "乾電池":
                 info1 = "乾電池は23番です";
                 break;
-            case "adhesive tape":
+            case "粘着テープ":
                 info1 = "粘着テープの場合、紙は2番、";
                 info2 = "布/養生は12番、ビニールは13番です";
                 break;
-            case "button battery":
+            case "ボタン電池":
                 info1 = "水銀を含まないボタン電池は23番です";
+                break;
+            default:
                 break;
         }
         lines.add(info1);

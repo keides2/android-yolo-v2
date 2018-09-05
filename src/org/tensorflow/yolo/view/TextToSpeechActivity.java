@@ -19,12 +19,12 @@ import static org.tensorflow.yolo.Config.LOGGING_TAG;
 public abstract class TextToSpeechActivity extends CameraActivity implements TextToSpeech.OnInitListener {
     private TextToSpeech textToSpeech;
     private String lastRecognizedClass = "";
+    private String tts;
 
     @Override
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
-            Locale locale = Locale.US;   // shimatani
-//            Locale locale = Locale.JAPAN;   // shimatani
+            Locale locale = Locale.JAPAN;   // shimatani
 
 // shimatani
             if (textToSpeech.isLanguageAvailable(locale) >= TextToSpeech.LANG_AVAILABLE) {
@@ -57,6 +57,21 @@ public abstract class TextToSpeechActivity extends CameraActivity implements Tex
                 Log.i(LOGGING_TAG, "speak");    // shimatani
             } else {
                 textToSpeech.speak(lastRecognizedClass, TextToSpeech.QUEUE_FLUSH, null);
+            }
+        }
+    }
+
+    protected void speak2(List<Recognition> results, String tts) {
+        this.tts = tts;
+        Log.i(LOGGING_TAG, "speak2 entry: " + this.tts);
+        if (!(results.isEmpty() || lastRecognizedClass.equals(results.get(0).getTitle()))) {
+            // lastRecognizedClass = results.get(0).getTitle();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                textToSpeech.speak( this.tts, TextToSpeech.QUEUE_FLUSH, null, null);
+                Log.i(LOGGING_TAG, "speak2 >= 23");    // shimatani
+            } else {
+                textToSpeech.speak(this.tts, TextToSpeech.QUEUE_FLUSH, null);
+                Log.i(LOGGING_TAG, "speak2 < 23");
             }
         }
     }
