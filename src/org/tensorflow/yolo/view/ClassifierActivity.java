@@ -9,7 +9,6 @@ import android.media.Image;
 import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
-// import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
@@ -46,8 +45,12 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
     private BorderedText borderedText;
     private long lastProcessingTimeMs;
 
-    private String lastRecognizedClass = "";    // shimatani
-    // private TextToSpeech tts;   // shimatani
+// shimatani
+    private String lastRecognizedClass = "";
+    private String nowRecognizedClass = "";
+    private String tts = "";
+    private String msgInf1 = "";
+    private String msgInf2 = "";
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -106,48 +109,53 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
             Log.e(LOGGING_TAG, ex.getMessage());
         }
 
-// shimatani
-        String tts = makeTts();
-        Log.i(LOGGING_TAG, tts);
-
         runInBackground(() -> {
             final long startTime = SystemClock.uptimeMillis();
             final List<Recognition> results = recognizer.recognizeImage(croppedBitmap);
             lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
-            if (!(results.isEmpty() || lastRecognizedClass.equals(results.get(0).getTitle()))) {
-                lastRecognizedClass = results.get(0).getTitle();    // shimatani
-            }
             overlayView.setResults(results);
 
 // shimatani
-            // speak(results);
-            speak2(results, tts);
+            Log.d(LOGGING_TAG, "Debug: before getTitle()");
+            if (!(results.isEmpty() || lastRecognizedClass.equals(results.get(0).getTitle()))) {
+                nowRecognizedClass = results.get(0).getTitle();
+                Log.d(LOGGING_TAG, "Debug: " + nowRecognizedClass) ;
+                lastRecognizedClass = nowRecognizedClass;
+
+                tts = makeTts(nowRecognizedClass);
+                Log.d(LOGGING_TAG, "makeTts(): " + tts);
+                    if (!(tts.equals(""))) {
+                    //speak(results);
+                    speak2(results, tts);
+                    tts = "";
+                }
+            }
 
             requestRender();
             computing = false;
         });
     }
 
-    private String makeTts() {
-        String info1 = "";
-        String info2 = "";
-        String tts = "";
-        switch (lastRecognizedClass) {
+    private String makeTts(String nowRecognizedClass) {
+        switch (nowRecognizedClass) {
             case "乾電池":
-                info1 = "乾電池は23番です";
+                msgInf1 = "乾電池は23番です";
+                msgInf2 = "";
                 break;
             case "粘着テープ":
-                info1 = "粘着テープの場合、紙は2番、";
-                info2 = "布/養生は12番、ビニールは13番です";
+                msgInf1 = "粘着テープの場合、紙は2番、";
+                msgInf2 = "布/養生は12番、ビニールは13番です";
                 break;
             case "ボタン電池":
-                info1 = "水銀を含まないボタン電池は23番です";
+                msgInf1 = "水銀を含まないボタン電池は23番です";
+                msgInf2 = "";
                 break;
             default:
+                msgInf1 = "";
+                msgInf2 = "";
                 break;
         }
-        tts = info1 + info2;
-        return tts;
+        return msgInf1 + msgInf2;
     }
 
     private void fillCroppedBitmap(final Image image) {
@@ -167,7 +175,6 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
 
     private void renderAdditionalInformation(final Canvas canvas) {
         final Vector<String> lines = new Vector();
-
         if (recognizer != null) {
             for (String line : recognizer.getStatString().split("\n")) {
                 lines.add(line);
@@ -180,27 +187,13 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
         // lines.add("Rotation: " + sensorOrientation);
         // lines.add("Inference time: " + lastProcessingTimeMs + "ms");
 
-        Log.i(LOGGING_TAG, "検出名");
-        lines.add("検出名: " + lastRecognizedClass);
+        Log.d(LOGGING_TAG, "検出名");
+        lines.add("検出名: " + nowRecognizedClass);
 
-        String info1 = "";
-        String info2 = "";
-        switch(lastRecognizedClass){
-            case "乾電池":
-                info1 = "乾電池は23番です";
-                break;
-            case "粘着テープ":
-                info1 = "粘着テープの場合、紙は2番、";
-                info2 = "布/養生は12番、ビニールは13番です";
-                break;
-            case "ボタン電池":
-                info1 = "水銀を含まないボタン電池は23番です";
-                break;
-            default:
-                break;
-        }
-        lines.add(info1);
-        lines.add(info2);
+        String msgInf = makeTts(nowRecognizedClass);
+
+        lines.add(msgInf1);
+        lines.add(msgInf2);
 
         borderedText.drawLines(canvas, 10, 10, lines);
     }

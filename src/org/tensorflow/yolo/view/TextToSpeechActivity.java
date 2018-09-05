@@ -19,7 +19,7 @@ import static org.tensorflow.yolo.Config.LOGGING_TAG;
 public abstract class TextToSpeechActivity extends CameraActivity implements TextToSpeech.OnInitListener {
     private TextToSpeech textToSpeech;
     private String lastRecognizedClass = "";
-    private String tts;
+    private String tts = "";    // shimatani
 
     @Override
     public void onInit(int status) {
@@ -54,25 +54,23 @@ public abstract class TextToSpeechActivity extends CameraActivity implements Tex
             lastRecognizedClass = results.get(0).getTitle();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 textToSpeech.speak(lastRecognizedClass, TextToSpeech.QUEUE_FLUSH, null, null);
-                Log.i(LOGGING_TAG, "speak");    // shimatani
             } else {
                 textToSpeech.speak(lastRecognizedClass, TextToSpeech.QUEUE_FLUSH, null);
             }
+            Log.d(LOGGING_TAG, "speak: " + lastRecognizedClass);    // shimatani
         }
     }
 
     protected void speak2(List<Recognition> results, String tts) {
         this.tts = tts;
-        Log.i(LOGGING_TAG, "speak2 entry: " + this.tts);
-        if (!(results.isEmpty() || lastRecognizedClass.equals(results.get(0).getTitle()))) {
-            // lastRecognizedClass = results.get(0).getTitle();
+        Log.d(LOGGING_TAG, "speak2 entry: " + this.tts);
+        if (!(results.isEmpty() || this.tts.equals(results.get(0).getTitle()))) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeech.speak( this.tts, TextToSpeech.QUEUE_FLUSH, null, null);
-                Log.i(LOGGING_TAG, "speak2 >= 23");    // shimatani
+                textToSpeech.speak(this.tts, TextToSpeech.QUEUE_FLUSH, null, null);
             } else {
                 textToSpeech.speak(this.tts, TextToSpeech.QUEUE_FLUSH, null);
-                Log.i(LOGGING_TAG, "speak2 < 23");
             }
+            Log.d(LOGGING_TAG, "speak2: " + this.tts);    // shimatani
         }
     }
 
