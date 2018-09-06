@@ -80,13 +80,32 @@ public class OverlayView extends View {
             case 0:
                 garbageNum = 23;    // ボタン電池 button battery
                 break;
-            case 1:                 // 粘着テープ adhesive tape
-                garbageNum = 2;     // 紙
-                garbageNum = 12;    // 布、養生
-                // garbageNum = 13;    // ビニール
+            case 1:                 // 粘着テープ(混合) adhesive tape
+                garbageNum = 12;    // 紙、布、養生、ビニール（暫定分類）
                 break;
             case 2:
                 garbageNum = 23;    // 乾電池 cell battery
+                break;
+            case 3:                 // PPバンド
+                garbageNum = 9;
+                break;
+            case 4:                 // タイラップ(白)
+                garbageNum = 10;
+                break;
+            case 5:                 // タイラップ(白以外)
+                garbageNum = 12;
+                break;
+            case 6:                 // 粘着テープ(紙) adhesive tape
+                garbageNum = 2;     // 紙
+                break;
+            case 7:                 // 粘着テープ(布) adhesive tape
+                garbageNum = 12;    // 布、養生
+                break;
+            case 8:                 // 粘着テープ(養生) adhesive tape
+                garbageNum = 12;    // 布、養生
+                break;
+            case 9:                 // 粘着テープ(ビニール) adhesive tape
+                garbageNum = 13;    // ビニール
                 break;
             default:
                 garbageNum = 99;    // 未分類
