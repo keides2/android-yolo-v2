@@ -138,17 +138,45 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
 
     private String makeTts(String nowRecognizedClass) {
         switch (nowRecognizedClass) {
-            case "乾電池":
-                msgInf1 = "乾電池は23番です";
+            case "ボタン電池":   // 0
+                msgInf1 = "水銀を含まないボタン電池は23番です";
                 msgInf2 = "";
                 break;
-            case "粘着テープ":
+            case "粘着テープ":   // 1 (混合)
                 msgInf1 = "粘着テープの場合、紙は2番、";
                 msgInf2 = "布/養生は12番、ビニールは13番です";
                 break;
-            case "ボタン電池":
-                msgInf1 = "水銀を含まないボタン電池は23番です";
+            case "乾電池": // 2
+                msgInf1 = "乾電池は23番です";
                 msgInf2 = "";
+                break;
+            case "Ｐ・Ｐバンド":  // 3
+                msgInf1 = "Ｐ・Ｐバンドは9番です";
+                msgInf2 = "";
+                break;
+            case "タイラップ（白）":    // 4
+                msgInf1 = "白いタイラップは10番です";
+                msgInf2 = "";
+                break;
+            case "タイラップ（白以外）":  // 5
+                msgInf1 = "白以外のタイラップは、12番です";
+                msgInf2 = "";
+                break;
+            case "粘着テープ（紙）":    // 6
+                msgInf1 = "粘着テープの場合、紙は2番、";
+                msgInf2 = "布/養生は12番、ビニールは13番です";
+                break;
+            case "粘着テープ（布）":    // 7
+                msgInf1 = "粘着テープの場合、紙は2番、";
+                msgInf2 = "布/養生は12番、ビニールは13番です";
+                break;
+            case "粘着テープ（養生）":   // 8
+                msgInf1 = "粘着テープの場合、紙は2番、";
+                msgInf2 = "布/養生は12番、ビニールは13番です";
+                break;
+            case "粘着テープ（ビニール）": // 9
+                msgInf1 = "粘着テープの場合、紙は2番、";
+                msgInf2 = "布/養生は12番、ビニールは13番です";
                 break;
             default:
                 msgInf1 = "";
