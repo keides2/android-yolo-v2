@@ -78,7 +78,7 @@ public class OverlayView extends View {
         Integer garbageNum = results.get(i).getId();
         switch(garbageNum){
             case 0:
-                garbageNum = 23;    // 乾電池 cell battery
+                garbageNum = 23;    // ボタン電池 button battery
                 break;
             case 1:                 // 粘着テープ adhesive tape
                 garbageNum = 2;     // 紙
@@ -86,7 +86,7 @@ public class OverlayView extends View {
                 // garbageNum = 13;    // ビニール
                 break;
             case 2:
-                garbageNum = 23;    // ボタン電池 button battery
+                garbageNum = 23;    // 乾電池 cell battery
                 break;
             default:
                 garbageNum = 99;    // 未分類
