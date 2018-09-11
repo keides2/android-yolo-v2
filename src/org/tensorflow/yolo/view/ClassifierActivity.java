@@ -150,8 +150,8 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
                 msgInf1 = "乾電池は23番です";
                 msgInf2 = "";
                 break;
-            case "Ｐ・Ｐバンド":  // 3
-                msgInf1 = "Ｐ・Ｐバンドは9番です";
+            case "PPバンド":  // 3
+                msgInf1 = "PPバンドは9番です";
                 msgInf2 = "";
                 break;
             case "タイラップ（白）":    // 4
