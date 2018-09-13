@@ -9,8 +9,7 @@
 
 **APKファイルは[こちら(Space Finder)](http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=14950370)からダウンロードできます**
 
-![ごみ分別アイコン](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/res/drawable-xhdpi/ic_launcher.png)
-
+<a href="http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=14950370" download><img src="http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/res/drawable-xhdpi/ic_launcher.png"></a>
 
 **-----**
 **以下は、ベースとなった Zoltán Szabó さんの README です。**
