@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # weightsファイルから、mAPを計算する
 # Usage: ./darknet-map.sh [モデルのフォルダ名]

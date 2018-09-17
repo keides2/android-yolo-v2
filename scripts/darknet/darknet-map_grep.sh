@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # mapファイルから必要な業だけを抜き出す
 # Usage: ./darknet-map_grep.sh [モデルのフォルダ名]

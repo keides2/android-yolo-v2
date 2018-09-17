@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # *100.weights ～ *900.weights ファイルを削除する
 # Usage: ./darknet-rm_100weights.sh [モデルのフォルダ名]

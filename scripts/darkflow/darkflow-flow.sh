@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # 重み係数モデル .weightsファイルを.pbファイルに変換する
 # Usage: ./darkflow-flow.sh [モデルのフォルダ名]
