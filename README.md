@@ -1,13 +1,5 @@
 # ごみ分別スマホアプリ
 
-ごみ検出イメージです
-
-![ごみ分別サンプル画像](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/Screenshot_20180829-1.png)
-![ごみ分別サンプル画像](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/Screenshot_20180829-2.png)
-
-以下は、ベースとなった Zoltán Szabó さんの README です。
-https://github.com/szaza/android-yolo-v2
-
 # Android YOLO with TensorFlow Mobile
 This android application uses YOLOv2 model for object detection. It uses tensorflow mobile to run neural networks. I would like to use tensorflow lite later. Probably, it is the first open source implementation of the second version of YOLO for Tensorflow on Android device. The demo application detects 20 classes of Pascal VOC dataset. Please read this paper for more information about the YOLOv2 model: [YOLO9000 Better, Faster, Stronger](https://arxiv.org/pdf/1612.08242.pdf).
 
