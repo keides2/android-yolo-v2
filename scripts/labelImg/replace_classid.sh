@@ -5,7 +5,7 @@
 # Usage: ./replace_classid.sh [フォルダ名] [ファイル名] [変更後の分類番号]
 # $ ./replace_classid.sh cd 2
 
-if [ $# -ne 3 ]
+if [[ $# -ne 3 ]]
 then
 	echo "------------------------------------"
 	echo "This script needs 3 parameters."
@@ -22,6 +22,8 @@ FOLDER=$1
 FILE=$2
 NEW_CLASSID=$3
 
+# 書き換え実行
+echo "先頭1文字の書き換えを開始します"
 sed -i -e 's/^. /'$NEW_CLASSID' /g' $FOLDER'/'$FILE*.txt
 exit 0
 

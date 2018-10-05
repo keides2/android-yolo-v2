@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# 秘伝のたれを使って、学習する
+# 秘伝のたれ/事前学習済みモデルを使って、学習する
 # Usage: ./darknet-train.sh [秘伝のたれファイル名] [作成するモデルのフォルダ名]
-# $ ./darknet-train.sh pp2/pp2_final.weights pp4
+# $ ./darknet-train.sh backup/pp2/pp2_final.weights pp4
+# $ ./darknet-train.sh bin/darknet19_448.conv.23 all
 
 
 # if ["$1" = ""]
-if [ $# -ne 2 ]
+if [[ $# -ne 2 ]]
 then
 	echo ""
 	echo "This script needs 2 parameters."
@@ -23,12 +24,16 @@ fi
 WEIGHTS=$1	# pre-trained weights
 TRIAL=$2	# weights folder name
 
-mkdir $TRIAL
+# $TRIALディレクトリが無ければ作成します
+echo $TRIAL"ディレクトリが無ければ作成します"
+mkdir -p $TRIAL
+
+# 学習開始
+echo "学習を開始します"
 ./darknet detector train \
 cfg/$TRIAL/$TRIAL.data \
 cfg/$TRIAL/$TRIAL.cfg \
-# bin/darknet19_448.conv.23
-backup/$WEIGHTS \
+$WEIGHTS \
 1>> backup/$TRIAL'-'train.log 
 
 echo "Done!"

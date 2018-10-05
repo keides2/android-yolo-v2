@@ -4,7 +4,7 @@
 # Usage: ./darkflow-flow.sh [モデルのフォルダ名]
 # $ ./darkflow-flow.sh pp4
 
-if ["$1" = ""]
+if [[ "$1" = "" ]]
 then
 	echo ""
 	echo "This script needs 1 parameter."
@@ -21,36 +21,48 @@ fi
 TRIAL=$1
 
 # カレントディレクトリ変更
+echo "(1/9) カレントディレクトリを、darkflowに変更します"
 cd ~/darkflow
 
-# $TRIALディレクトリ作成
-mkdir bin/$TRIAL
+# $TRIALディレクトリが無ければ作成
+echo "(2/9) "$TRIAL" ディレクトリを、作成します"
+mkdir -p bin/$TRIAL
 
-# .weightsファイルを、darknetからdarkflowにコピー
-echo ".weightsファイルを、darknetからdarkflowにコピーします"
+# .weightsファイルを、darknetからdarkflowへコピー
+echo "(3/9) .weightsファイルを、darknetからdarkflowへコピーします"
 cp ~/darknet/backup/$TRIAL/$TRIAL'_final'.weights bin/$TRIAL
 
 # リネーム
-echo "ファイル名を変更します"
+echo "(4/9) .weightsファイルの名前を変更します"
 mv bin/$TRIAL/$TRIAL'_final'.weights bin/$TRIAL/yolov2-tiny-voc.weights
 
+# .cfgファイルをコピー
+echo "(5/9) .cfgファイルを、darknetからdarkflowへコピーします"
+cp ~/darknet/cfg/$TRIAL/$TRIAL'.cfg' cfg/yolov2-tiny-voc.cfg
+
+# labels.txt の内容を変更します。 darknetの .namesファイルを、darkflowの labels.txtにコピーします
+echo "(6/9) darknetの .namesファイルを、darkflowの labels.txtにコピーします"
+cp ~/darknet/cfg/$TRIAL/$TRIAL'.names' labels.txt
+
+# 変換開始
+echo "(7/9) .weightsファイルを .pbファイルに変換します"
 ./flow \
 	--model cfg/yolov2-tiny-voc.cfg \
 	--load bin/$TRIAL/yolov2-tiny-voc.weights \
 	--savepb
 
 # リネーム
-echo "ファイル名をyolov2-tiny-voc.pbから、tiny-yolo-voc-graph.pbに変更します"
+echo "(8/9) ファイル名をyolov2-tiny-voc.pbから、tiny-yolo-voc-graph.pbに変更します"
 mv built_graph/yolov2-tiny-voc.pb built_graph/tiny-yolo-voc-graph.pb
 
-# $TRIALディレクトリ作成、ファイル移動
-echo "darkflow/built_graph/"$TRIAL"ディレクトリを作成し、pbファイルをそこへ移動します"
-mkdir built_graph/$TRIAL
+# $TRIALディレクトリ無ければ作成、ファイル移動
+echo "(9/9) darkflow/built_graph/"$TRIAL"ディレクトリを作成し、pbファイルをここに移動します"
+mkdir -p built_graph/$TRIAL
 mv built_graph/tiny-yolo-voc-graph.pb built_graph/$TRIAL/tiny-yolo-voc-graph.pb
 mv built_graph/yolov2-tiny-voc.meta built_graph/$TRIAL/yolov2-tiny-voc.meta
 
 # pbファイルをWindowsのAndroid環境にコピーする
 # WinSPを使って、tiny-yolo-voc-graph.pbファイルをG:\Android\Project\garbage\assets\tiny-yolo-voc-graph.pb にダウンロード
-echo "WinSPを使って、tiny-yolo-voc-graph.pbファイルをG:\Android\Project\garbage\assets\tiny-yolo-voc-graph.pb にダウンロードしてください"
 echo "Done!"
+echo "(Next) WinSPを使って、tiny-yolo-voc-graph.pbファイルをG:\Android\Project\garbage\assets\tiny-yolo-voc-graph.pb にダウンロードしてください"
 exit 0

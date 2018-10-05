@@ -4,7 +4,7 @@
 # Usage: ./darknet-map.sh [モデルのフォルダ名]
 # $ ./darknet-map.sh pp4
 
-if ["$1" = ""]
+if [[ $1 = "" ]]
 then
 	echo ""
 	echo "This script needs 1 parameter."
@@ -27,11 +27,21 @@ FILE_NAME=$TRIAL-map_result.txt
 # 繰り返すときは、$TRIAL-map_result.txtを削除してからリスタート
 if [ -e backup/$TRIAL/$FILE_NAME ]
 then
+	echo $FILE_NAME" が存在するので、削除します"
 	rm backup/$TRIAL/$FILE_NAME
 fi
 
+# .weightsファイルを移動する
+echo $TRIAL" フォルダを作成します"
+mkdir -p backup/$TRIAL
+echo "すべての .weightsファイルを "$TRIAL" フォルダに移動します"
+mv backup/*.weights backup/$TRIAL
+
+# mAP計算開始
+echo "mAPを計算します"
 for ((i=start_value; i<stop_value; i+=1000))
 do
+	echo $TRIAL'_'${i}
 	echo $TRIAL'_'${i} >> backup/$TRIAL/$FILE_NAME
 	echo '---------------------------' >> backup/$TRIAL/$FILE_NAME
 	./darknet detector map cfg/$TRIAL/$TRIAL.data \
@@ -41,9 +51,4 @@ do
 done
 echo "Done!"
 exit 0
-
-# for i in 'seq 8600 100 14100'
-# do
-#	./darknet detector map cfg/button.data cfg/yolov2-tiny-voc.cfg backup/yolov2-tiny-voc_${i}.weights
-# done
 
