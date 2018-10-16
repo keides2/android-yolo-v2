@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # $ pip install opencv-python
 # $ pip install pillow
-#
+# Python3
 # Usage: $ Python yolo-img-x28_windows.py image_folder
 # 
 import sys
@@ -10,14 +10,12 @@ import glob
 import numpy as np
 from PIL import Image
 from PIL.ExifTags import TAGS
-# import xml.etree.ElementTree as ET
-# import pickle
 import shutil
 import os
 from os import listdir, getcwd
 from os.path import join
 
-# アフィン変換
+# バウンディング・ボックスのアフィン変換
 def convert_coordinate(box, size, deg):
     print("start convert_rotate function:")
     x = box[0]
@@ -30,7 +28,13 @@ def convert_coordinate(box, size, deg):
     print("w =", w)
     print("h =", h)
     
-    if deg == '90':
+    if deg == '0':
+        print("deg = 0")
+        x2 = x
+        y2 = y
+        w2 = w
+        h2 = h
+    elif deg == '90':
         print("deg = 90")
         x2 = 1 - y
         y2 = x
@@ -63,7 +67,7 @@ def convert_coordinate(box, size, deg):
 
     return (x2, y2, w2 ,h2)
 
-# リサイズ
+# 画像のリサイズ（未使用につき未確認）
 def resize_img(fname, ratio):
     img = Image.open(fname)
     # img_resize = img.resize((int(img.width * ratio), int(img.height * ratio)))
@@ -77,7 +81,7 @@ def resize_img(fname, ratio):
     img_resize_lanczos.save(name_base + '-' + str(ratio) + '.jpg')
     print(name_base + '-' + str(ratio) + '.jpg' + ' is saved.')
 
-# 回転
+# 画像の回転～新しいファイル名で保存
 def rotate_img(fname, deg):
     img = Image.open(fname)
     # 左回転に変換
@@ -104,7 +108,7 @@ def equalizeHistRGB(src):
     img_hist = cv2.merge([RGB[0],RGB[1], RGB[2]])
     return img_hist
 
-# ガウシアンノイズ
+# ガウシアンノイズ（未使用）
 def addGaussianNoise(src):
     row,col,ch= src.shape
     mean = 0
@@ -115,7 +119,7 @@ def addGaussianNoise(src):
     noisy = src + gauss
     return noisy
 
-# salt & pepperノイズ
+# salt & pepperノイズ（未使用）
 def addSaltPepperNoise(src):
     row,col,ch = src.shape
     s_vs_p = 0.5
@@ -134,7 +138,7 @@ def addSaltPepperNoise(src):
     out[coords[:-1]] = (0,0,0)
     return out
 
-# 画像のEXIFデータを取り出す
+# 画像のExifデータを取り出す
 def get_exif_of_image(file):
     im = Image.open(file)
 
@@ -142,60 +146,57 @@ def get_exif_of_image(file):
     # 存在しなければそのまま終了 空の辞書を返す
     try:
         exif = im._getexif()
+
+        # タグIDそのままでは人が読めないのでデコードして
+        # テーブルに格納する
+        exif_table = {}
+        for tag_id, value in exif.items():
+                tag = TAGS.get(tag_id, tag_id)
+                exif_table[tag] = value
     except AttributeError:
+        print(" exif が存在しません")
         return {}
-
-    # タグIDそのままでは人が読めないのでデコードして
-    # テーブルに格納する
-    exif_table = {}
-    for tag_id, value in exif.items():
-        tag = TAGS.get(tag_id, tag_id)
-        exif_table[tag] = value
-
+        
+    print(" exif-orientation: {0}".format(exif_table['Orientation']))
     return exif_table
 
-# ExifのRotationの数値から、回転する数値と、ミラー反転するかどうかを取得する
+# ExifテーブルのOrientationの数値から、回転する角度と、ミラー反転するかどうかを取得する
 def get_exif_rotation(orientation_num):
     """
-    ExifのRotationの数値から、回転する数値と、ミラー反転するかどうかを取得する
-    return 回転度数,反転するか(0 1)
+    return 回転角度,反転するか(0 1)
     # 参考: https://qiita.com/minodisk/items/b7bab1b3f351f72d534b
     """
     if orientation_num == 1:
         return 0, 0
     if orientation_num == 2:
         return 0, 1
-    if orientation_num == 3:
+    if orientation_num == 3:	# 元画像は、180度、右に回転している
         return 180, 0
     if orientation_num == 4:
         return 180, 1
     if orientation_num == 5:
         return 270, 1
-    if orientation_num == 6:
+    if orientation_num == 6:	# 元画像は、90度、右に回転している
         return 270, 0
     if orientation_num == 7:
         return 90, 1
-    if orientation_num == 8:
+    if orientation_num == 8:	# 元画像は、270度、右に回転している
         return 90, 0
  
-# exif情報を使用して、画像を回転する
-def rotation_exif_info(path, to_path):
-    """
-    画像のexif情報を使用して、画像を回転する
-    """
-    print(" Func: rotaiton_exif_inf() is called.")
+# Exif情報を使用して、画像を回転し、新しいファイル名で保存する
+def rotate_exif_info(path, to_path):
+    print(" Func: rotate_exif_info() is called.")
  
-    # to_save_path = to_path + "/" + os.path.basename(path)
-    to_save_path = to_path + os.path.sep + os.path.basename(path)
-    if os.path.exists(to_path)  is False:
+    # to_save_path = to_path + os.path.sep + os.path.basename(path)
+    to_save_path = to_path + '/' + os.path.basename(path)
+    if os.path.exists(to_path) is False:
         os.makedirs(to_path)
  
-    exif    = get_exif_of_image(path)
-    rotate  = 0
+    exif = get_exif_of_image(path)
+    rotate = 0
     reverse = 0
     if 'Orientation' in exif:
         rotate, reverse = get_exif_rotation(exif['Orientation'])
-    print(" Orientation before: %d" % exif['Orientation'])
 
     img = Image.open(path)
  
@@ -216,11 +217,20 @@ def main():
     # 引数１から画像フォルダ名取得
     args = sys.argv
     if (len(args) != 2):
-        print("Usage: $ python" + args[0] + " sample.jpg")
+        print("Usage: $ python" + args[0] + " image")
         quit()
 
     folder_name = args[1]
     print("Folder name (args[1]) is %s" % folder_name)
+	
+    # 存在する画像ファイル(*.jpg)一覧の取得
+    for file_name in glob.glob('./%s/*.jpg' % folder_name):
+        print("File name is %s" % file_name)
+        dir_name =  os.path.splitext(os.path.dirname(file_name))[0]
+        print(" dir_name: %s" % dir_name)
+        base_name =  os.path.splitext(os.path.basename(file_name))[0]
+        print(" base_name: %s" % base_name)
+
     '''
     # リサイズ
     # 存在する画像ファイル(*.jpg)一覧の取得
@@ -231,37 +241,14 @@ def main():
         resize_img(file_name, 0.5)
     '''
 
-    # <0> 画像のExif情報に合わせて回転する
-    for file_name in glob.glob('./%s/*.jpg' % folder_name):
-        print(" file_name = %s" % file_name)
-        path = file_name    # e.g.: ./image\cell0005.jpg
-        to_path = '.' + os.path.sep + 'exif' + os.path.sep + file_name
-        print(" to_path = %s" % to_path)
-
-        # Oientation が、8、3、6 以外なら回転して保存
-        rotation_exif_info(path, to_path)
-        
-        # 保存後のOrientationは？
-        exif    = get_exif_of_image(path)
-        rotate  = 0
-        reverse = 0
-        if 'Orientation' in exif:
-            rotate, reverse = get_exif_rotation(exif['Orientation'])
-        print(" Orientation after: %d" % exif['Orientation'])
-
-        '''
-        # 回転後の画像を上書き保存
-        src = to_path
-        dst = path 
-        shutil.copyfile(src, dst)
-        print(" %s is overwrited." % dst)
-        '''
-    '''
     # <1> 回転
     print("<1> Start rotation:")
     # 存在する画像ファイル(*.jpg)一覧の取得
     for file_name in glob.glob('./%s/*.jpg' % folder_name):
         print("File name is %s" % file_name)
+        
+        # 0°回転（Exif削除のために呼び出す
+        rotate_img(file_name, 0)
 
         # 90°回転（Ralphにあわせて右回転指示）
         rotate_img(file_name, 90)
@@ -271,7 +258,7 @@ def main():
 
         # 270°回転（Ralphにあわせて右回転指示）
         rotate_img(file_name, 270)
-
+		
     # <2> アノテーションファイルの生成
     print("<2> Start annotation:")
     # 存在するアノテーションファイル(*.txt)一覧の取得
@@ -280,6 +267,10 @@ def main():
 
         # ファイル名と拡張子を取得
         name_base, name_ext = os.path.splitext(file_name)
+        print(" name_base: %s" % name_base)
+        print(" name_ext: %s" % name_ext)
+        base_name =  os.path.splitext(os.path.basename(file_name))[0]
+        print(" base_name: %s" % base_name)
 
         # 1行抜き出し
         for line in open(file_name, 'r'):
@@ -287,7 +278,7 @@ def main():
             print("Image name is %s" % file_name.replace(".txt",".jpg"))
  
             # 画像サイズを知る
-            img = cv2.imread(file_name.replace(".txt",".jpg"), cv2.IMREAD_IGNORE_ORIENTATION)
+            img = cv2.imread(file_name.replace(".txt",".jpg"), cv2.IMREAD_IGNORE_ORIENTATION | cv2.IMREAD_COLOR)
             #
             # OpeCV Docs imread()
             # If EXIF information are embedded in the image file, 
@@ -319,7 +310,7 @@ def main():
             h = bbox[4]
             
             # 座標回転＋平行移動（アフィン変換）
-            degs = ['90', '180', '270']
+            degs = ['0', '90', '180', '270']
             for deg in degs:
                 # 変換
                 bbox2 = convert_coordinate((x, y), (w,h), deg)
@@ -329,10 +320,23 @@ def main():
                 # 同じ名前に角度を追記してファイル保存
                 # name_base, name_ext = os.path.splitext(file_name)
                 # list_write_file = open(name_base + '-' + deg + '.txt', 'a', newline="\n")
-                with open(name_base + '-' + deg + '.txt', 'a', newline="\n") as list_write_file:
+                with open(name_base + '-' + deg + '.txt', 'a', newline='\n') as list_write_file:
                     list_write_file.write(str(class_num) + " " + " ".join([str(a) for a in bbox2]) + "\n")
                 list_write_file.close()
-    '''
+            
+        # オリジナル画像の移動（0度も作成するのでダブル）
+        backup_dir = folder_name + '/backup'
+        if not os.path.exists(backup_dir) :
+            os.makedirs(backup_dir)
+            
+        print("オリジナル画像を ./backup へ移動します")
+        from_file_jpg = name_base + '.jpg'     # file_name
+        from_file_txt = name_base + '.txt'
+        to_file_jpg = backup_dir + '/' + base_name + '.jpg'
+        to_file_txt = backup_dir + '/' + base_name + '.txt'
+        shutil.move(from_file_jpg, to_file_jpg)
+        shutil.move(from_file_txt, to_file_txt)
+    
     # <3> 画像変換
     print("<3> Start conversion:")
     # ルックアップテーブルの生成
@@ -378,7 +382,7 @@ def main():
         print("Image File name is %s" % image_file)
 
         # 画像の読み込み
-        img_src = cv2.imread(image_file, 1)
+        img_src = cv2.imread(image_file, cv2.IMREAD_IGNORE_ORIENTATION | cv2.IMREAD_COLOR)
         trans_img = []
         trans_img.append(img_src)
         print(" trans_img: 画像の読み込み完")
@@ -418,18 +422,19 @@ def main():
         trans_img.extend(flip_img)
         print("trans_img: 反転完")
         '''
+        # print("tran i = {0}".format(trans_img[0]))
 
         # 変換後の画像保存
         print("Saving:")
         # if not os.path.exists("trans_images"):
         #    os.mkdir("trans_images")
-
+        
         dir_name =  os.path.splitext(os.path.dirname(image_file))[0]
         # print(" dir_name: %s" % dir_name)
 
         base_name =  os.path.splitext(os.path.basename(image_file))[0]
         # print(" base_name: %s" % base_name)
-
+        
         img_src.astype(np.float64)
   
         for i, img in enumerate(trans_img):
@@ -444,6 +449,20 @@ def main():
                 dst = dir_name + os.path.sep + 'trans_' + base_name + '_' + str(i-1) + '.txt' 
                 shutil.copyfile(src, dst)
                 print(" %s is saved." % dst)
+        '''
+        # オリジナル画像の移動
+        backup_dir = folder_name + '/backup'
+        if not os.path.exists(backup_dir) :
+            os.makedirs(backup_dir)
+        print("オリジナル画像を ./backup へ移動します")
+        from_file_jpg = dir_name + os.path.sep + base_name + '.jpg'
+        from_file_txt = dir_name + os.path.sep + base_name + '.txt'
+        to_file_jpg = backup_dir + '/' + base_name + '.jpg'
+        to_file_txt = backup_dir + '/' + base_name + '.txt'
+        shutil.move(from_file_jpg, to_file_jpg)
+        shutil.move(from_file_txt, to_file_txt)
+        '''
+
 # break
 
 if __name__ == '__main__':
