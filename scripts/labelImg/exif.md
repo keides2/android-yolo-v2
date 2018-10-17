@@ -1,8 +1,8 @@
 # labelImg 使用時の注意
 
-<img src=181016-0.jpg>
-<img src=181016-1.jpg>
-<img src=181016-2.jpg>
-<img src=181016-3.jpg>
-<img src=181016-4.jpg>
-<img src=181016-5.jpg>
+![image_alt_text](181016-0.jpg)
+![image_alt_text](181016-1.jpg)
+![image_alt_text](181016-2.jpg)
+![image_alt_text](181016-3.jpg)
+![image_alt_text](181016-4.jpg)
+![image_alt_text](181016-5.jpg)
