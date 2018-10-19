@@ -1,8 +1,10 @@
 # Attention when using labelImg
 
-![image_alt_text](slide1-181018.jpg)
-![image_alt_text](slide2-181018.jpg)
-![image_alt_text](slide3-181018.jpg)
-![image_alt_text](slide4-181018.jpg)
-![image_alt_text](slide5-181018.jpg)
-![image_alt_text](slide6-181018.jpg)
+![Slide1A](Slide1A.jpg)
+![Slide2A](Slide2A.jpg)
+![Slide3A](Slide3A.jpg)
+![Slide4A](Slide4A.jpg)
+![Slide5A](Slide5A.jpg)
+![Slide6A](Slide6A.jpg)
+![Slide7A](Slide7A.jpg)
+![Slide8A](Slide8A.jpg)
