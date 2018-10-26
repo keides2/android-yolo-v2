@@ -1,0 +1,6 @@
+process.py の改良版
+引数で、フォルダーと割合を指定できる
+
+Usage: $ python process2.py <image folder> <ratio of test(%)>
+
+カレントディレクトリ '.' の指定可能

@@ -1,0 +1,6 @@
+１．process2.py を実行し、test.txt （と、train.txt）を作成する
+２．test.txtの中身を呼んで、記述されている画像ファイルと、アノテーションファイルを、testフォルダに移動する
+
+引数で、フォルダーと割合を指定する
+
+Usage: $ python <image folder> <ratio of test(%)>
