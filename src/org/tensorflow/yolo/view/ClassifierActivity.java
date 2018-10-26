@@ -138,45 +138,33 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
 
     private String makeTts(String nowRecognizedClass) {
         switch (nowRecognizedClass) {
-            case "ボタン電池":   // 0
-                msgInf1 = "水銀を含まないボタン電池は23番です。";
-                msgInf2 = "";
+            case "Ｃ型リモコン":   // 0
+                msgInf1 = "Ｃ型リモコンのケースは、１３番、";
+                msgInf2 = "プリント基板は１９番です。";
                 break;
-            case "粘着テープ":   // 1 (混合)
-                msgInf1 = "粘着テープの場合、紙は2番、";
-                msgInf2 = "布/養生は12番、ビニールは13番です。";
+            case "軍手・革手":   // 1
+                msgInf1 = "軍手、耐カット軍手、皮手は、";
+                msgInf2 = "７番です。";
                 break;
-            case "乾電池": // 2
-                msgInf1 = "乾電池は23番です。";
-                msgInf2 = "";
+            case "マーカー": // 2
+                msgInf1 = "マーカー、蛍光ペン、水性・油性ペン、";
+                msgInf2 = "修正ペン、シャーペン、ボールペンは、１３番です。";
                 break;
-            case "PPバンド":  // 3
-                msgInf1 = "PPバンドは9番です。";
-                msgInf2 = "";
+            case "Ｇ型リモコン":  // 3
+                msgInf1 = "Ｇ型リモコンのケースは、１３番、";
+                msgInf2 = "プリント基板は１９番です。";
                 break;
-            case "タイラップ（白）":    // 4
-                msgInf1 = "白いタイラップは10番です。";
-                msgInf2 = "白以外のタイラップは、12番です。";
+            case "Ｅ型リモコン":    // 4
+                msgInf1 = "Ｅ型リモコンのケースは、１３番、";
+                msgInf2 = "プリント基板は１９番です。";
                 break;
-            case "タイラップ（白以外）":  // 5
-                msgInf1 = "白以外のタイラップは、12番です。";
-                msgInf2 = "白いタイラップは10番です。";
+            case "ボタン電池":  // 5
+                msgInf1 = "水銀を含まないボタン電池は、２３番です。";
+                msgInf2 = "乾電池も２３番です。";
                 break;
-            case "粘着テープ（紙）":    // 6
-                msgInf1 = "粘着テープの場合、紙は2番、";
-                msgInf2 = "布/養生は12番、ビニールは13番です。";
-                break;
-            case "粘着テープ（布）":    // 7
-                msgInf1 = "粘着テープの場合、紙は2番、";
-                msgInf2 = "布/養生は12番、ビニールは13番です。";
-                break;
-            case "粘着テープ（養生）":   // 8
-                msgInf1 = "粘着テープの場合、紙は2番、";
-                msgInf2 = "布/養生は12番、ビニールは13番です。";
-                break;
-            case "粘着テープ（ビニール）": // 9
-                msgInf1 = "粘着テープの場合、紙は2番、";
-                msgInf2 = "布/養生は12番、ビニールは13番です。";
+            case "乾電池":    // 6
+                msgInf1 = "乾電池は２３番です。";
+                msgInf2 = "水銀を含まないボタン電池も、２３番です。";
                 break;
             default:
                 msgInf1 = "";
