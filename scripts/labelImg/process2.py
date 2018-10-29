@@ -39,4 +39,8 @@ for pathAndFilename in glob.iglob(os.path.join(path_data, "*.jpg")):
         file_train.write(path_data + '/' + title + '.jpg' + "\n")
         counter = counter + 1
     # print("index_test = %d, counter = %d" % (index_test, counter))
+
+file_train.close()
+file_test.close()
+
 print("Done!")
