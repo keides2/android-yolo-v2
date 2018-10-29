@@ -26,7 +26,7 @@ TRIAL=$2	# weights folder name
 
 # $TRIALディレクトリが無ければ作成します
 echo $TRIAL"ディレクトリが無ければ作成します"
-mkdir -p $TRIAL
+mkdir -p backup/$TRIAL
 
 # 学習開始
 echo "学習を開始します"
@@ -35,6 +35,10 @@ cfg/$TRIAL/$TRIAL.data \
 cfg/$TRIAL/$TRIAL.cfg \
 $WEIGHTS \
 1>> backup/$TRIAL'-'train.log 
+echo "Training done!"
 
-echo "Done!"
+# weights ファイルの移動
+mv backup/*.weights backup/$TRIAL
+mv backup/*.log backup/$TRIAL
+
 exit 0

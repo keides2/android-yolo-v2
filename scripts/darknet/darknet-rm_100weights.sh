@@ -13,7 +13,7 @@ then
 	echo "$ source activate tensorflow"
 	echo "$ ./darknet-rm_100weights.sh [weights folder name]"
 	echo "e.g."
-	echo "$ ./darknet-rm_100weights.sh pp4"
+	echo "$ ./darknet-rm_100weights.sh backup/pp4"
 	echo ""
 	exit 1
 fi
@@ -22,5 +22,7 @@ TRIAL=$1
 
 # .weightsファイルを削除する
 echo "100回毎の.weightsファイルを削除します"
-rm backup/$TRIAL/*[1-9]00.weights
+cd backup
+pwd
+rm $TRIAL/*[1-9]00.weights
 exit 0

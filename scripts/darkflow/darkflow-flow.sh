@@ -64,5 +64,5 @@ mv built_graph/yolov2-tiny-voc.meta built_graph/$TRIAL/yolov2-tiny-voc.meta
 # pbファイルをWindowsのAndroid環境にコピーする
 # WinSPを使って、tiny-yolo-voc-graph.pbファイルをG:\Android\Project\garbage\assets\tiny-yolo-voc-graph.pb にダウンロード
 echo "Done!"
-echo "(Next) WinSPを使って、tiny-yolo-voc-graph.pbファイルをG:\Android\Project\garbage\assets\tiny-yolo-voc-graph.pb にダウンロードしてください"
+echo "(Next) WinSCPを使って、tiny-yolo-voc-graph.pbファイルをG:\Android\Project\garbage\assets\tiny-yolo-voc-graph.pb にダウンロードしてください"
 exit 0
