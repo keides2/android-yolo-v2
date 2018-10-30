@@ -2,6 +2,12 @@
 
 **ごみ検出イメージです**
 
+![ごみ1](sample/marker2-A.png)
+![ごみ2](sample/leather2-A.png)
+![ごみ3](sample/c-remocon2-A.png)
+![ごみ4](sample/e-remocon-A.png)
+![ごみ5](sample/marker2-A.png)
+
 <img src=http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/★乾電池+ボタン電池+粘着テープ.png width=30%>
 <img src=http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/★粘着テープとボタン電池.png width=30%>
 <img src=http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/★PPバンド.png width=30%>
