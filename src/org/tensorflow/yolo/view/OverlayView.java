@@ -99,13 +99,10 @@ public class OverlayView extends View {
                 garbageNum = 23;     // 乾電池
                 break;
             case 7:
-                garbageNum = 12;    // 布、養生
+                garbageNum = 10;    // タイラップ
                 break;
             case 8:
-                garbageNum = 12;    // 布、養生
-                break;
-            case 9:
-                garbageNum = 13;    // ビニール
+                garbageNum = 9;    // ＰＰバンド
                 break;
             default:
                 garbageNum = 99;    // 未分類

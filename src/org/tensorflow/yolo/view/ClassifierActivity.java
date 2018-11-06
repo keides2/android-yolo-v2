@@ -166,6 +166,14 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
                 msgInf1 = "乾電池は２３番です。";
                 msgInf2 = "水銀を含まないボタン電池も、２３番です。";
                 break;
+            case "タイラップ":    // 7
+                msgInf1 = "白いタイラップは、１０番です。";
+                msgInf2 = "白以外のタイラップは、１２番です。";
+                break;
+            case "ＰＰバンド":    // 8
+                msgInf1 = "ＰＰバンドは、９番です。";
+                msgInf2 = "";
+                break;
             default:
                 msgInf1 = "";
                 msgInf2 = "";
