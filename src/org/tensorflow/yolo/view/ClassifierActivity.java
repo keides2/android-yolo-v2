@@ -147,8 +147,8 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
                 msgInf2 = "７番です。";
                 break;
             case "マーカー": // 2
-                msgInf1 = "マーカー、蛍光・水性・油性ペン、修正";
-                msgInf2 = "ペン、シャーペン、ボールペンは、１３番です。";
+                msgInf1 = "マーカー、蛍光・水性・油性・修正ペン、";
+                msgInf2 = "シャーペン、ボールペンは、１３番です。";
                 break;
             case "Ｇ型リモコン":  // 3
                 msgInf1 = "Ｇ型リモコンのケースは、１３番、";
