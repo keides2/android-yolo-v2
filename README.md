@@ -8,11 +8,6 @@
 ![ごみ3](sample/c-remocon2-A.png)
 ![ごみ4](sample/e-remocon-A.png)
 
-<img src=http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/★乾電池+ボタン電池+粘着テープ.png width=30%>
-<img src=http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/★粘着テープとボタン電池.png width=30%>
-<img src=http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/★PPバンド.png width=30%>
-<img src=http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/★粘着テープ茶+乾電池+ボタン電池.png width=30%>
-
 **APKファイルは[こちら(Space Finder)](http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=15225742)からダウンロードできます**
 
 <a href="http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=14950370" download><img src="http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/res/drawable-xhdpi/ic_launcher.png"></a>
