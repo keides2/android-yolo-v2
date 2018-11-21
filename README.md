@@ -16,6 +16,10 @@
 
 <a href="https://github.com/keides2/android-yolo-v2/blob/master/release/garbage-release.apk" download><img src="sample/ic_launcher.png"></a>
 
+※ 検出できるごみは、下のファイルに記載の物になります。
+
+https://github.com/keides2/android-yolo-v2/blob/master/assets/tiny-yolo-voc-labels.txt
+
 **-----**
 
 **以下は、ベースとなった Zoltán Szabó さんの README です。**
