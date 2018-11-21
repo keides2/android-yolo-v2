@@ -2,17 +2,22 @@
 
 **ごみ検出イメージです**
 
-![ごみ1](sample/marker2-A.png)
-![ごみ2](sample/leather2-A.png)
-![ごみ5](sample/work3-A.png)
-![ごみ3](sample/c-remocon2-A.png)
-![ごみ4](sample/e-remocon-A.png)
+![pp](sample/★PPバンド2.png), ![cell](sample/★乾電池+ボタン電池+粘着テープ2.png)
 
-**APKファイルは[こちら(Space Finder)](http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=15225742)からダウンロードできます**
+![tape](sample/★粘着テープとボタン電池2.png), ![tape](sample/★粘着テープ茶+乾電池+ボタン電池2.png)
 
-<a href="http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=14950370" download><img src="http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/res/drawable-xhdpi/ic_launcher.png"></a>
+![ごみ3](sample/c-remocon2-A.png), ![ごみ4](sample/e-remocon-A.png)
+
+![ごみ2](sample/leather2-A.png), ![ごみ5](sample/work3-A.png)
+
+![ごみ1](sample/marker2-A.png), 
+
+**APKファイルは[こちら](https://github.com/keides2/android-yolo-v2/blob/master/release/garbage-release.apk)からダウンロードできます**
+
+<a href="https://github.com/keides2/android-yolo-v2/blob/master/release/garbage-release.apk" download><img src="https://github.com/keides2/android-yolo-v2/tree/master/sample/ic_launcher.png"></a>
 
 **-----**
+
 **以下は、ベースとなった Zoltán Szabó さんの README です。**
 https://github.com/szaza/android-yolo-v2
 
