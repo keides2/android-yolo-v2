@@ -14,7 +14,7 @@
 
 **APKファイルは[こちら](https://github.com/keides2/android-yolo-v2/blob/master/release/garbage-release.apk)からダウンロードできます**
 
-<a href="https://github.com/keides2/android-yolo-v2/blob/master/release/garbage-release.apk" download><img src="https://github.com/keides2/android-yolo-v2/tree/master/sample/ic_launcher.png"></a>
+<a href="https://github.com/keides2/android-yolo-v2/blob/master/release/garbage-release.apk" download><img src="sample/ic_launcher.png"></a>
 
 **-----**
 
@@ -44,8 +44,8 @@ Compile and run the project:
 
 How it works?
 
-![android yolo v2 sample image](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/android-yolo-v2.png)
-![android yolo v2 sample image](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/android-yolo-v2.1.png)
+![android yolo v2 sample image](sample/android-yolo-v2.png)
+![android yolo v2 sample image](sample/android-yolo-v2.1.png)
 
 If you would like a more accurate solution, create a server application. See my related projects here:
 * [Tensorflow Example Java API](https://sites.google.com/view/tensorflow-example-java-api/home)
