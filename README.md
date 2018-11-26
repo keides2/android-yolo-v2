@@ -2,14 +2,12 @@
 
 **ごみ検出イメージです**
 
-### 動画
 
 <video  width="360" height="640" controls><source src="sample/garbage.3gp" type="video/3gp"></video>
 
 ### 動画
 
-<a href="https://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/blob/master/sample/garbage.3gp" download><img src="sample/garbage-3gp.jpg"></a>
-
+<a href="sample/garbage.3gp" download><img src="sample/garbage-3gp.jpg"></a>
 ### 静止画
 
 ![pp](sample/★PPバンド2.png), ![cell](sample/★乾電池+ボタン電池+粘着テープ2.png)
