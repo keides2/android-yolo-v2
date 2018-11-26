@@ -2,11 +2,15 @@
 
 **ごみ検出イメージです**
 
-![ごみ1](sample/marker2-A.png)
-![ごみ2](sample/leather2-A.png)
-![ごみ5](sample/work3-A.png)
-![ごみ3](sample/c-remocon2-A.png)
-![ごみ4](sample/e-remocon-A.png)
+<video  width="360" height="640" controls><source src="sample/garbage.3gp" type="video/3gp"></video>
+
+![pp](sample/★PPバンド2.png), ![cell](sample/★乾電池+ボタン電池+粘着テープ2.png)
+
+![tape](sample/★粘着テープとボタン電池2.png), ![tape](sample/★粘着テープ茶+乾電池+ボタン電池2.png)
+
+![ごみ3](sample/c-remocon2-A.png), ![ごみ4](sample/e-remocon-A.png)
+
+![ごみ2](sample/leather2-A.png), ![ごみ5](sample/work3-A.png)
 
 **APKファイルは[こちら(Space Finder)](http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=15225742)からダウンロードできます**
 
@@ -39,8 +43,8 @@ Compile and run the project:
 
 How it works?
 
-![android yolo v2 sample image](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/android-yolo-v2.png)
-![android yolo v2 sample image](http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/android-yolo-v2.1.png)
+![android yolo v2 sample image](sample/android-yolo-v2.png)
+![android yolo v2 sample image](sample/android-yolo-v2.1.png)
 
 If you would like a more accurate solution, create a server application. See my related projects here:
 * [Tensorflow Example Java API](https://sites.google.com/view/tensorflow-example-java-api/home)
