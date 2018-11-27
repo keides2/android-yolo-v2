@@ -6,9 +6,7 @@
 <video  width="180" height="320" controls><source src="sample/garbage.3gp" type="video/3gp"></video>
 
 ### 動画
-<a href="http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=15367874" download><img src="http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/blob/master/sample/garbage-3gp.jpg" alt="ダウンロード" /></a>
-
-<a href="http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=15367874" download><img src="sample/garbage-3gp.jpg" alt="ダウンロード" /></a>
+<a href="http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=15367874" download><img src="http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/garbage-3gp.jpg" alt="ダウンロード" /></a>
 
 ### 静止画
 ![pp](sample/★PPバンド2.png), ![cell](sample/★乾電池+ボタン電池+粘着テープ2.png)
