@@ -51,6 +51,7 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
     private String tts = "";
     private String msgInf1 = "";
     private String msgInf2 = "";
+    private int matchCount = 0;
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -115,19 +116,29 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
             lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
             overlayView.setResults(results);
 
-// shimatani
+            // shimatani
             Log.d(LOGGING_TAG, "Debug: before getTitle()");
-            if (!(results.isEmpty() || lastRecognizedClass.equals(results.get(0).getTitle()))) {
-                nowRecognizedClass = results.get(0).getTitle();
-                Log.d(LOGGING_TAG, "Debug: " + nowRecognizedClass) ;
-                lastRecognizedClass = nowRecognizedClass;
 
-                tts = makeTts(nowRecognizedClass);
-                Log.d(LOGGING_TAG, "makeTts(): " + tts);
+            if (!(results.isEmpty() || lastRecognizedClass.equals(results.get(0).getTitle()))) {
+                matchCount++;
+                if (matchCount > 4) {
+                    // match 5 times
+                    Log.d(LOGGING_TAG, String.format("Debug: match %d times", matchCount));
+                    matchCount = 0;
+
+                    nowRecognizedClass = results.get(0).getTitle();
+                    Log.d(LOGGING_TAG, "Debug: " + nowRecognizedClass) ;
+                    lastRecognizedClass = nowRecognizedClass;
+
+                    tts = makeTts(nowRecognizedClass);
+                    Log.d(LOGGING_TAG, "makeTts(): " + tts);
                     if (!(tts.equals(""))) {
-                    //speak(results);
-                    speak2(results, tts);
-                    tts = "";
+                        //speak(results);
+                        speak2(results, tts);
+                        tts = "";
+                    }
+                } else {
+                    Log.d(LOGGING_TAG, String.format("matchCount: %d", matchCount));
                 }
             }
 
