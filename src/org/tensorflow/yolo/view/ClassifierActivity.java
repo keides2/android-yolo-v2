@@ -52,6 +52,8 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
     private String msgInf1 = "";
     private String msgInf2 = "";
     private int matchCount = 0;
+    private String lastResult = "";
+    private String nowResult = "";
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -110,41 +112,7 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
             Log.e(LOGGING_TAG, ex.getMessage());
         }
 
-        runInBackground(() -> {
-            final long startTime = SystemClock.uptimeMillis();
-            final List<Recognition> results = recognizer.recognizeImage(croppedBitmap);
-            lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
-            overlayView.setResults(results);
-
-            // shimatani
-            Log.d(LOGGING_TAG, "Debug: before getTitle()");
-
-            if (!(results.isEmpty() || lastRecognizedClass.equals(results.get(0).getTitle()))) {
-                matchCount++;
-                if (matchCount > 4) {
-                    // match 5 times
-                    Log.d(LOGGING_TAG, String.format("Debug: match %d times", matchCount));
-                    matchCount = 0;
-
-                    nowRecognizedClass = results.get(0).getTitle();
-                    Log.d(LOGGING_TAG, "Debug: " + nowRecognizedClass) ;
-                    lastRecognizedClass = nowRecognizedClass;
-
-                    tts = makeTts(nowRecognizedClass);
-                    Log.d(LOGGING_TAG, "makeTts(): " + tts);
-                    if (!(tts.equals(""))) {
-                        //speak(results);
-                        speak2(results, tts);
-                        tts = "";
-                    }
-                } else {
-                    Log.d(LOGGING_TAG, String.format("matchCount: %d", matchCount));
-                }
-            }
-
-            requestRender();
-            computing = false;
-        });
+        runInBackground(this::run);
     }
 
     private String makeTts(String nowRecognizedClass) {
@@ -222,7 +190,7 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
         // lines.add("Rotation: " + sensorOrientation);
         // lines.add("Inference time: " + lastProcessingTimeMs + "ms");
 
-        Log.d(LOGGING_TAG, "検出名");
+        Log.d(LOGGING_TAG, String.format("検出名: %s", nowRecognizedClass));
         lines.add("検出名: " + nowRecognizedClass);
 
         String msgInf = makeTts(nowRecognizedClass);
@@ -231,5 +199,48 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
         lines.add(msgInf2);
 
         borderedText.drawLines(canvas, 10, 10, lines);
+    }
+
+    private void run() {
+        final long startTime = SystemClock.uptimeMillis();
+        final List<Recognition> results = recognizer.recognizeImage(croppedBitmap);
+        lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+        overlayView.setResults(results);
+
+        // shimatani
+        Log.d(LOGGING_TAG, "Debug: runInBackground()");
+
+        nowResult = results.get(0).getTitle();
+        Log.d(LOGGING_TAG, String.format("Find: %s", nowResult));
+        Log.d(LOGGING_TAG, String.format("matchCount: %d", matchCount));
+
+        if (!(results.isEmpty()) && lastResult.equals(nowResult)) {
+            matchCount++;
+            if (matchCount > 4) {
+                // match 5 times
+                matchCount = 0;
+
+                if (!(results.isEmpty() || lastRecognizedClass.equals(results.get(0).getTitle()))) {
+                    nowRecognizedClass = results.get(0).getTitle();
+                    Log.d(LOGGING_TAG, "Debug: " + nowRecognizedClass);
+                    lastRecognizedClass = nowRecognizedClass;
+
+                    tts = makeTts(nowRecognizedClass);
+                    Log.d(LOGGING_TAG, "makeTts(): " + tts);
+                    if (!(tts.equals(""))) {
+                        speak2(results, tts);
+                        tts = "";
+                    }
+                }
+            } else {
+                // nothing to do
+            }
+        } else {
+            matchCount = 0;
+        }
+        lastResult = nowResult;
+
+        requestRender();
+        computing = false;
     }
 }
