@@ -210,35 +210,37 @@ public class ClassifierActivity extends TextToSpeechActivity implements OnImageA
         // shimatani
         Log.d(LOGGING_TAG, "Debug: runInBackground()");
 
-        nowResult = results.get(0).getTitle();
-        Log.d(LOGGING_TAG, String.format("Find: %s", nowResult));
-        Log.d(LOGGING_TAG, String.format("matchCount: %d", matchCount));
+        if (!(results.isEmpty())) {
+            nowResult = results.get(0).getTitle();
+            Log.d(LOGGING_TAG, String.format("Find: %s", nowResult));
 
-        if (!(results.isEmpty()) && lastResult.equals(nowResult)) {
-            matchCount++;
-            if (matchCount > 4) {
-                // match 5 times
-                matchCount = 0;
+            if (!(results.isEmpty()) && lastResult.equals(nowResult)) {
+                matchCount++;
+                if (matchCount > 3) {
+                    // match 4 times
+                    matchCount = 0;
 
-                if (!(results.isEmpty() || lastRecognizedClass.equals(results.get(0).getTitle()))) {
-                    nowRecognizedClass = results.get(0).getTitle();
-                    Log.d(LOGGING_TAG, "Debug: " + nowRecognizedClass);
-                    lastRecognizedClass = nowRecognizedClass;
+                    if (!(results.isEmpty() || lastRecognizedClass.equals(nowResult))) {
+                        nowRecognizedClass = nowResult;
+                        Log.d(LOGGING_TAG, "Match 4 times: " + nowRecognizedClass);
+                        lastRecognizedClass = nowRecognizedClass;
 
-                    tts = makeTts(nowRecognizedClass);
-                    Log.d(LOGGING_TAG, "makeTts(): " + tts);
-                    if (!(tts.equals(""))) {
-                        speak2(results, tts);
-                        tts = "";
+                        tts = makeTts(nowRecognizedClass);
+                        Log.d(LOGGING_TAG, "makeTts(): " + tts);
+                        if (!(tts.equals(""))) {
+                            speak2(results, tts);
+                            tts = "";
+                        }
                     }
+                } else {
+                    // nothing to do
                 }
             } else {
-                // nothing to do
+                matchCount = 0;
             }
-        } else {
-            matchCount = 0;
+            lastResult = nowResult;
+            Log.d(LOGGING_TAG, String.format("matchCount: %d", matchCount));
         }
-        lastResult = nowResult;
 
         requestRender();
         computing = false;
