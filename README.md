@@ -1,14 +1,10 @@
 # ごみ分別スマホアプリ
 
 **ごみ検出イメージです**
+***動画***
+<a href="https://www.youtube.com/watch?v=NQ57sMHpjRg&feature=youtu.be"><img src="sample/movie.png" alt="movie" width="180" height="280"/></a>
 
-
-<video  width="180" height="320" controls><source src="sample/garbage.3gp" type="video/3gp"></video>
-
-### 動画
-<a href="http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=15367874" download><img src="http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/sample/garbage-3gp.jpg" alt="ダウンロード" /></a>
-
-### 静止画
+***静止画***
 ![pp](sample/★PPバンド2.png), ![cell](sample/★乾電池+ボタン電池+粘着テープ2.png)
 
 ![tape](sample/★粘着テープとボタン電池2.png), ![tape](sample/★粘着テープ茶+乾電池+ボタン電池2.png)
@@ -17,11 +13,18 @@
 
 ![ごみ2](sample/leather2-A.png), ![ごみ5](sample/work3-A.png)
 
-**APKファイルは[こちら(Space Finder)](http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=15277145)からダウンロードできます**
+![ごみ1](sample/marker2-A.png), 
 
-<a href="http://sfacp.daikin.co.jp:80/PI/Daikin.Comtec.Client.SfUI.App.Filer.application?S=1&B=52&D=15277145" download><img src="http://jp64sv166.daikin.co.jp/gitbucket/shimatani/garbage/raw/master/res/drawable-xhdpi/ic_launcher.png"></a>
+**APKファイルは[こちら](https://github.com/keides2/android-yolo-v2/blob/master/release/garbage-release.apk)からダウンロードできます**
+
+<a href="https://github.com/keides2/android-yolo-v2/blob/master/release/garbage-release.apk" download><img src="sample/ic_launcher.png"></a>
+
+※ 検出できるごみは、下のファイルに記載の物になります。
+
+https://github.com/keides2/android-yolo-v2/blob/master/assets/tiny-yolo-voc-labels.txt
 
 **-----**
+
 **以下は、ベースとなった Zoltán Szabó さんの README です。**
 https://github.com/szaza/android-yolo-v2
 
