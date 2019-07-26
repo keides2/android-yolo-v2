@@ -32,7 +32,7 @@ android {
         release {
             keyAlias 'key0'
             keyPassword '123456'
-            storeFile file('G:/Android/Project/keystore/keystores.jks')
+            storeFile file('C:\\Users\\shimatani\\Documents\\Git-repository\\garbage\\keystore\\keystores.jks')
             storePassword '123456'
         }
     }
