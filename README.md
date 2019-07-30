@@ -1,10 +1,10 @@
 # ごみ分別スマホアプリ
 
 **ごみ検出イメージです**
-***動画***
+### 動画
 <a href="https://www.youtube.com/watch?v=NQ57sMHpjRg&feature=youtu.be"><img src="sample/movie.png" alt="movie" width="180" height="280"/></a>
 
-***静止画***
+### 静止画
 ![pp](sample/★PPバンド2.png), ![cell](sample/★乾電池+ボタン電池+粘着テープ2.png)
 
 ![tape](sample/★粘着テープとボタン電池2.png), ![tape](sample/★粘着テープ茶+乾電池+ボタン電池2.png)
