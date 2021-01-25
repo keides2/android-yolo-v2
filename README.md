@@ -1,10 +1,13 @@
 # ごみ分別スマホアプリ
 
-**ごみ検出イメージです**
+## **ごみ検出イメージです**
+
 ### 動画
-<a href="https://www.youtube.com/watch?v=NQ57sMHpjRg&feature=youtu.be"><img src="sample/movie.png" alt="movie" width="180" height="280"/></a>
+
+<a href="https://www.youtube.com/watch?v=NQ57sMHpjRg&feature=youtu.be"><img src="sample/ic_launcher.png" alt="movie" width="200" height="200"/></a>
 
 ### 静止画
+
 ![pp](sample/★PPバンド2.png), ![cell](sample/★乾電池+ボタン電池+粘着テープ2.png)
 
 ![tape](sample/★粘着テープとボタン電池2.png), ![tape](sample/★粘着テープ茶+乾電池+ボタン電池2.png)
@@ -23,7 +26,7 @@
 
 https://github.com/keides2/android-yolo-v2/blob/master/assets/tiny-yolo-voc-labels.txt
 
-**-----**
+----
 
 **以下は、ベースとなった Zoltán Szabó さんの README です。**
 https://github.com/szaza/android-yolo-v2
